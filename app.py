@@ -2,6 +2,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 from langchain_google_genai import GoogleGenerativeAI
+from langchain.prompts import PromptTemplate
 import google.generativeai as genai
 
 load_dotenv()
@@ -13,11 +14,27 @@ genai.configure(api_key=GOOGLE_API_KEY)
 llm = genai.GenerativeModel('gemini-pro')
 llm_vision = genai.GenerativeModel('gemini-pro-vision')
 
+with st.sidebar:
+    subject = st.selectbox("Select your Subject", ("Physics", "Chemistry", "Maths", "Computer Science"))
+
 
 st.title("➕➖SciGemini➗✖️")
 st.subheader('Your Personal AI Tutor for for the Sciences!')
 
+
+prompt = PromptTemplate(
+    input_variables=["doubt", "subject"],
+    template="""You are an expert science tutor/
+    Your name is SciGemini. You explain the concepts in simple terms that are very easy to understand/
+    If the question is not strictly about the subject, please reject it politely and ask to rephrase/
+    The question is: {doubt}/
+    The subject is: {subject}/"""
+)
+
+
 doubt = st.text_input("Ask your doubt...")
+doubt = prompt.format(doubt=doubt, subject=subject)
+
 input_type = st.radio("Select Mode of Input...", ("Upload an image", "Take a picture"))
 if input_type == "Upload an image":
     img = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
@@ -33,5 +50,6 @@ def get_response(doubt, img):
     return response
 
 if submit:
-    response = get_response(doubt, img)
+    with st.spinner('Thinking...'):
+        response = get_response(doubt, img)
     st.markdown(response.text)
