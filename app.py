@@ -26,7 +26,7 @@ with st.sidebar:
 
 st.title("➕➖SciGemini➗✖️")
 st.subheader('Your Personal AI Tutor for the Sciences!')
-st.text('Powered by Google Gemini')
+st.write('Powered by Google Gemini')
 
 
 prompt = PromptTemplate(
