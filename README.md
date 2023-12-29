@@ -1,4 +1,4 @@
-# SciGemini
+# ➕➖SciGemini➗✖️
 
 This is a AI-based doubt solving app designed for high school and college students. Built using the Google's Gemini Pro model on top of Streamlit, it offers easy and elaborate explanations for concepts in the following subjects:
 
