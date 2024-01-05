@@ -1,4 +1,4 @@
-# SciGemini
+# ➕➖SciGemini➗✖️
 
 This is a AI-based doubt solving app designed for high school and college students. Built using the Google's Gemini Pro model on top of Streamlit, it offers easy and elaborate explanations for concepts in the following subjects:
 
@@ -14,6 +14,7 @@ Get all your scientific doubts solved [here](https://rhythmd18-scigemini.streaml
 This application utilizes the Google's brand new AI model named [Gemini](https://deepmind.google/technologies/gemini/#introduction). It employs [LangChain](https://python.langchain.com/docs/get_started/introduction) to craft a prompt based the user's selection of subject, query and the uploaded image. This generated prompt is sent to the Gemini API and the model provides an appropriate response that be helpful to the concerned user. The application leverages the multi-modal capabilities of the Gemini model as it can process both image and text queries to successfully generate a response!
 
 ## Demo
+![](https://github.com/rhythmd18/SciGemini/blob/main/demo.gif)
 
 ## Features
 
