@@ -17,6 +17,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 memory = ConversationBufferMemory(memory_key='chat_history', input_key='human_input')
 
 
+
 # Setup session state
 if 'submitted' not in st.session_state:
     st.session_state['submitted'] = False
@@ -34,13 +35,14 @@ else:
         memory.save_context({'human_input': message['human_input']}, {'output': message['AI']})
 
 
+
 # Setup LLM
 llm = genai.GenerativeModel('gemini-pro')
 llm_chat = ChatGoogleGenerativeAI(model=st.session_state['model'], google_api_key=GOOGLE_API_KEY)
 llm_vision = genai.GenerativeModel('gemini-pro-vision')
 
 
-# Setup UI
+# Setup Sidebar UI
 with st.sidebar:
     st.subheader("Instructions:")
     st.markdown("""
@@ -88,6 +90,7 @@ prompt_template = PromptTemplate(
 
 
 
+# Primary Doubt of the student
 doubt = st.text_input("Ask your doubt...")
 message = prompt_template.format(chat_history=[], doubt=doubt, subject=subject, human_input='')
 
@@ -106,6 +109,7 @@ btn_placeholder = st.empty()
 
 
 
+# Generate response for the first question
 def get_response(doubt, img):
     if img:
         response = llm_vision.generate_content([doubt, img])
@@ -115,7 +119,14 @@ def get_response(doubt, img):
 
 
 
+# Render the messages from the session state
+for message in st.session_state['messages']:
+    with st.chat_message(message['role']):
+        st.markdown(message['content'])
 
+
+
+# Response before submitting the first question
 if st.session_state['submitted'] == False:
     submit = btn_placeholder.button('Submit')
 
@@ -136,11 +147,12 @@ if st.session_state['submitted'] == False:
         with st.chat_message('assistant'):
             message_placeholder = st.empty()  # Create an empty placeholder
             full_response = '' # Initialize the full_response
-            with st.spinner('Typing...'):
-                for chunk in response.text.split(): # Split the response into chunks
-                    full_response += chunk + ' '# Append the chunk to the full_response
+            for chunk in response.text.splitlines():
+                for word in chunk.split(): # Split the response into chunks
+                    full_response += word + ' '# Append the chunk to the full_response
                     time.sleep(0.05)
-                    message_placeholder.text(full_response + '▌ ')  # Update the message_placeholder
+                    message_placeholder.markdown(full_response + '▌ ')  # Update the message_placeholder
+                full_response += '  \n'
             message_placeholder.markdown(response.text)
         st.session_state['messages'].append({'role': 'assistant', 'content': response.text})
 
@@ -156,11 +168,8 @@ llmchain = LLMChain(
 
 
 
-if st.session_state['submitted']:
-
-    for message in st.session_state['messages']:
-        with st.chat_message(message['role']):
-            st.markdown(message['content'])
+# Start the chat after submission of the first question
+if st.session_state['submitted']:        
 
     follow_up = st.chat_input('Ask a follow-up question...')
     if follow_up:
@@ -176,10 +185,11 @@ if st.session_state['submitted']:
         with st.chat_message('assistant'):
             message_placeholder = st.empty()  # Create an empty placeholder
             full_response = '' # Initialize the full_response
-            with st.spinner('Typing...'):
-                for chunk in response.split(): # Split the response into chunks
-                    full_response += chunk + ' '# Append the chunk to the full_response
+            for chunk in response.splitlines():
+                for word in chunk.split(): # Split the response into chunks
+                    full_response += word + ' '# Append the chunk to the full_response
                     time.sleep(0.05)
                     message_placeholder.markdown(full_response + '▌ ')  # Update the message_placeholder
+                full_response += '  \n'
             message_placeholder.markdown(response)
         st.session_state['messages'].append({'role': 'assistant', 'content': response})
