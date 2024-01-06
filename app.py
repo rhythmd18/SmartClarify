@@ -153,8 +153,8 @@ if st.session_state['submitted'] == False:
                     time.sleep(0.05)
                     message_placeholder.markdown(full_response + '▌ ')  # Update the message_placeholder
                 full_response += '  \n'
-            message_placeholder.markdown(response.text)
-        st.session_state['messages'].append({'role': 'assistant', 'content': response.text})
+            message_placeholder.markdown(response.candidates[0].content.parts[0].text)
+        st.session_state['messages'].append({'role': 'assistant', 'content': response.candidates[0].content.parts[0].text})
 
 
 
