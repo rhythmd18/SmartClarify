@@ -7,7 +7,7 @@ This is a AI-based doubt solving app designed for high school and college studen
 - Mathematics
 - Computer Science
 
-Get all your scientific doubts solved [here](https://rhythmd18-scigemini.streamlit.app/)!
+Get all your scientific doubts solved [here](https://rhythmd18-smartclarify.streamlit.app/)!
 
 ## Description
 
