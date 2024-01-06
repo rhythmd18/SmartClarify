@@ -15,6 +15,8 @@ This application utilizes the Google's brand new AI model named [Gemini](https:/
 
 ## Demo
 
+![](https://github.com/rhythmd18/SmartClarify/blob/main/demo.mp4)
+
 ## Features
 
 - Get explanations based on a query or an image or both
