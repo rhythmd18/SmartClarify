@@ -141,20 +141,21 @@ if st.session_state['submitted'] == False:
 
         with st.spinner('Thinking...'):
             response = get_response(message, img)
-        message = {'human_input': doubt, 'AI': response.text}
+        response = response.candidates[0].content.parts[0].text
+        message = {'human_input': doubt, 'AI': response}
         st.session_state['chat_history'].append(message)
 
         with st.chat_message('assistant'):
             message_placeholder = st.empty()  # Create an empty placeholder
             full_response = '' # Initialize the full_response
-            for chunk in response.text.splitlines():
+            for chunk in response.splitlines():
                 for word in chunk.split(): # Split the response into chunks
                     full_response += word + ' '# Append the chunk to the full_response
                     time.sleep(0.05)
                     message_placeholder.markdown(full_response + '▌ ')  # Update the message_placeholder
                 full_response += '  \n'
-            message_placeholder.markdown(response.candidates[0].content.parts[0].text)
-        st.session_state['messages'].append({'role': 'assistant', 'content': response.candidates[0].content.parts[0].text})
+            message_placeholder.markdown(response)
+        st.session_state['messages'].append({'role': 'assistant', 'content': response})
 
 
 
