@@ -11,11 +11,9 @@ Get all your scientific doubts solved [here](https://rhythmd18-scigemini.streaml
 
 ## Description
 
-This application utilizes the Google's brand new AI model named [Gemini](https://deepmind.google/technologies/gemini/#introduction). It employs [LangChain](https://python.langchain.com/docs/get_started/introduction) to craft a prompt based the user's selection of subject, query and the uploaded image. This generated prompt is sent to the Gemini API and the model provides an appropriate response that be helpful to the concerned user. The application leverages the multi-modal capabilities of the Gemini model as it can process both image and text queries to successfully generate a response!
+This application utilizes the Google's brand new AI model named [Gemini](https://deepmind.google/technologies/gemini/#introduction). It employs [LangChain](https://python.langchain.com/docs/get_started/introduction) to craft a prompt based the user's selection of subject, query and the uploaded image. This generated prompt is sent to the Gemini API and the model provides an appropriate response that be helpful to the concerned user. The application leverages the multi-modal capabilities of the Gemini model as it can process both image and text queries to successfully generate a response. The user can then continue on with their conversation with the bot if their doubt regarding the concerned topic is still unclear.
 
 ## Demo
-
-![](https://github.com/rhythmd18/SciGemini/blob/main/demo.gif)
 
 ## Features
 
