@@ -17,6 +17,10 @@ genai.configure(api_key=GOOGLE_API_KEY)
 memory = ConversationBufferMemory(memory_key='chat_history', input_key='human_input')
 
 
+# Setup page configuration
+title_bar_logo = Image.open("./assets/Asset 8@3x.png")
+st.set_page_config(page_title="SmartClarify", page_icon=title_bar_logo, layout="centered")
+
 
 # Setup session state
 if 'submitted' not in st.session_state:
@@ -42,6 +46,9 @@ llm_chat = ChatGoogleGenerativeAI(model=st.session_state['model'], google_api_ke
 llm_vision = genai.GenerativeModel('gemini-pro-vision')
 
 
+
+
+
 # Setup Sidebar UI
 with st.sidebar:
     st.subheader("Instructions:")
@@ -49,7 +56,8 @@ with st.sidebar:
              * Select your subject of choice
              * Ask your doubt in the text box provided
              * Upload an image of your doubt if required
-             * And get your explanation instantly!""")
+             * And get your explanation instantly!
+             * Continue the conversation if your doubt is not resolved...""")
     subject = st.selectbox("Select your Subject", ("Physics", "Chemistry", "Maths", "Computer Science"))
     st.empty()
     st.markdown('***Please note:***\
@@ -58,8 +66,16 @@ with st.sidebar:
                 Kindly review the responses carefully before using them in your work. \
                 Use this application solely for understanding complicated concepts \
                 rather than for seeking solutions to questions.*')
+    clear = st.button('Clear Conversation')
+    if clear:
+        st.session_state['messages'] = []
+        st.session_state['chat_history'] = []
+        st.session_state['submitted'] = False
 
-st.header("➕➖SciGemini➗✖️")
+
+# Set title and logo
+logo = Image.open("./assets/Asset 9@3x.png")
+st.image(logo, use_column_width='auto')
 st.subheader('Your Personal AI Tutor for the Sciences!')
 st.write('Powered by Google Gemini')
 
