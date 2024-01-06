@@ -15,7 +15,11 @@ This application utilizes the Google's brand new AI model named [Gemini](https:/
 
 ## Demo
 
-![](https://github.com/rhythmd18/SmartClarify/blob/main/demo.mp4)
+
+
+https://github.com/rhythmd18/SmartClarify/assets/109751995/29e21804-87fd-45e2-bf5b-694f823a205f
+
+
 
 ## Features
 
