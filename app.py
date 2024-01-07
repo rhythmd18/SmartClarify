@@ -94,6 +94,7 @@ prompt_template = PromptTemplate(
     If the the question is left blank and there is no image either, ask the user to write the question./
     Spread out your response in points so that it is easy to grasp./
     Use LaTeX for mathematical equations (use $...$ for inline math expressions)./
+    Provide additional links for further reading./
     If the question or the image is not related to the subject strictly,/
     please refrain from describing anything and reject politely/
     and ask to rephrase the question or re-upload the image accordingly./
