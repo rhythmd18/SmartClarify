@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from PIL import Image
 import google.generativeai as genai
 from langchain.memory import ConversationBufferMemory
@@ -19,7 +20,7 @@ memory = ConversationBufferMemory(memory_key='chat_history', input_key='human_in
 
 # Setup page configuration
 title_bar_logo = Image.open("./assets/Asset 8@3x.png")
-st.set_page_config(page_title="SmartClarify", page_icon=title_bar_logo, layout="centered")
+st.set_page_config(page_title="SmartClarify", page_icon=title_bar_logo, layout="centered", initial_sidebar_state="expanded")
 
 
 # Setup session state
@@ -47,18 +48,18 @@ llm_vision = genai.GenerativeModel('gemini-pro-vision')
 
 
 
-
-
 # Setup Sidebar UI
 with st.sidebar:
-    st.subheader("Instructions:")
+    st.title("Welcome to")
+    st.image(Image.open("./assets/Asset 9@3x.png"))
+    st.subheader("Read before using:")
     st.markdown("""
              * Select your subject of choice
              * Ask your doubt in the text box provided
              * Upload an image of your doubt if required
              * And get your explanation instantly!
              * Continue the conversation if your doubt is not resolved...""")
-    subject = st.selectbox("Select your Subject", ("Physics", "Chemistry", "Maths", "Computer Science"))
+    subject = st.selectbox("Select your Subject", ("Physics", "Chemistry", "Maths", "Biology", "Computer Science", "English"))
     st.empty()
     st.markdown('***Please note:***\
                 *Being an AI-based application, \
@@ -67,6 +68,10 @@ with st.sidebar:
                 Use this application solely for understanding complicated concepts \
                 rather than for seeking solutions to questions.*')
     clear = st.button('Clear Conversation')
+    components.html("""
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="rhythmd18" data-color="#c1272d" data-emoji="☕"  data-font="Bree" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+""")
+
     if clear:
         st.session_state['messages'] = []
         st.session_state['chat_history'] = []
@@ -76,15 +81,15 @@ with st.sidebar:
 # Set title and logo
 logo = Image.open("./assets/Asset 9@3x.png")
 st.image(logo, use_column_width='auto')
-st.subheader('Your Personal AI Tutor for the Sciences!')
-st.write('Powered by Google Gemini')
+st.subheader('Your Personal AI Tutor!')
+st.write('Powered by **Google Gemini**')
 
 
 
 # Setup prompt
 prompt_template = PromptTemplate(
     input_variables=["doubt", "subject"],
-    template="""You are an expert science tutor whose name is SciGemini./
+    template="""You are an expert tutor whose name is SmartClarify./
     You explain the concepts in simple terms that are very easy to understand (even to a 10-year-old kid)./
     If the the question is left blank and there is no image either, ask the user to write the question./
     Spread out your response in points so that it is easy to grasp./
